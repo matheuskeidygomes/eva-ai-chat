@@ -33,7 +33,7 @@ export function ChatMessages({ chatId }: ChatMessagesProps) {
   }
 
   return (
-    <ScrollArea ref={scrollAreaRef} className="pl-5 pr-5">
+    <ScrollArea ref={scrollAreaRef} className="pl-5 pr-5 w-full h-full">
       {chat.messages.length === 0 ? (
         <div className="flex flex-col items-center justify-center text-center text-muted-foreground">
           <h3 className="text-xl font-medium mb-2">Welcome to your conversation with AI</h3>
