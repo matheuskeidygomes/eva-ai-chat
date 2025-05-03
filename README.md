@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Chat Assistant
+
+A modern chat application that allows users to communicate with an AI assistant. The application supports both regular and streaming responses, file uploads, and voice messages.
+
+## Features
+
+- 💬 Text chat with AI assistant
+- 🔄 Real-time streaming responses
+- 🎤 Voice message recording and playback
+- 📎 File attachments support
+- 🌓 Dark and light theme toggle
+- 💾 Persistent chat history with local storage
+- 📱 Responsive design for all devices
+
+## Technologies Used
+
+- Next.js 15.3
+- React 19
+- Tailwind CSS 4
+- shadcn/ui components
+- Zustand for state management
+- TypeScript
+- React Markdown
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.17 or later
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/ai-chat-assistant.git
+cd ai-chat-assistant
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                 # Next.js app directory
+│   ├── chat/            # Regular chat UI
+│   ├── stream-chat/     # Streaming chat UI
+│   ├── globals.css      # Global styles
+│   ├── layout.tsx       # Root layout
+│   └── page.tsx         # Home page
+├── components/          # React components
+│   ├── chat/            # Chat-related components
+│   ├── providers/       # Context providers
+│   ├── ui/              # UI components from shadcn
+│   └── theme-toggle.tsx # Theme toggle component
+└── lib/                 # Utilities and services
+    ├── api.ts           # Mock API service
+    ├── audio-service.ts # Audio recording service
+    ├── file-service.ts  # File handling service
+    ├── store.ts         # Zustand store
+    └── utils.ts         # Utility functions
+```
 
-## Learn More
+## API Integration
 
-To learn more about Next.js, take a look at the following resources:
+The application is designed to work with an API that has two endpoints:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `/chat/text` - For regular text responses
+- `/chat/stream` - For streaming responses
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Currently, the application uses mock API services that simulate these endpoints. To connect to a real API, modify the functions in `src/lib/api.ts`.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
