@@ -207,7 +207,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
               <Button
                 variant="destructive"
                 size="icon"
-                className="h-5 w-5 absolute -top-2 -right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                className="h-5 w-5 absolute -top-2 -right-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                 onClick={() => removeAttachment(attachment.id)}
               >
                 <X className="h-3 w-3" />
