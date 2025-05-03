@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider/index";
 import { Toaster } from "@/components/ui/sonner";
-import PageTransition from "@/components/page-transition";
 import "./index.css";
 
 const geistSans = Geist({
@@ -36,9 +35,7 @@ export default function RootLayout({
           enableSystem 
           disableTransitionOnChange
         >
-          <PageTransition>
             {children}
-          </PageTransition>
           <Toaster />
         </ThemeProvider>
       </body>
