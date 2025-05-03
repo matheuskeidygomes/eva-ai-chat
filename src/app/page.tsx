@@ -26,7 +26,8 @@ export default function Home() {
   return (
     <main className="flex items-center justify-center min-h-screen p-4">
       <div className="text-center">
-        <Image src="/logo-white.png" alt="Logo" width={100} height={100} className="w-30 m-4"/>
+        <Image src="/logo-black.png" alt="Logo" width={100} height={100} className="w-30 m-4 inline dark:hidden"/>
+        <Image src="/logo-white.png" alt="Logo" width={100} height={100} className="w-30 m-4 hidden dark:inline"/>
         <h1 className="text-5xl font-bold font-[TESLA] dark:text-white">EVA</h1>
       </div>
     </main>

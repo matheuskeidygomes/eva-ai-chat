@@ -19,7 +19,7 @@ export default function ChatLayout({
       {/* Desktop sidebar */}
       <aside className="hidden md:flex flex-col w-[280px] border-r bg-background">
         <div className="flex items-center justify-between p-4 border-b">
-          <h1 className="font-semibold">AI Chat Assistant</h1>
+          <h1 className="font-semibold">Chat History</h1>
         </div>
         <ChatList />
       </aside>
@@ -39,7 +39,7 @@ export default function ChatLayout({
           <SheetContent side="left" className="p-0 w-[280px]">
             <div className="flex flex-col h-full">
               <div className="flex items-center justify-between p-4 border-b">
-                <h1 className="font-semibold">AI Chat Assistant</h1>
+                <h1 className="font-semibold">Chat History</h1>
               </div>
               <ChatList />
             </div>
