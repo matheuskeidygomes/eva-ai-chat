@@ -57,7 +57,7 @@ export function ChatList() {
   };
   
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full min-h-0">
       <div className="p-4">
         <Button 
           onClick={handleCreateChat} 
@@ -68,7 +68,7 @@ export function ChatList() {
         </Button>
       </div>
       
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 overflow-y-auto">
         <div className="px-2 pb-4">
           {chats.length === 0 ? (
             <div className="p-4 text-center text-muted-foreground">
