@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MenuIcon, X } from 'lucide-react';
+import { MenuIcon } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { ChatList } from '@/components/chat/chat-list';
 import { Button } from '@/components/ui/button';
