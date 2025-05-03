@@ -20,7 +20,6 @@ export default function ChatLayout({
       <aside className="hidden md:flex flex-col w-[280px] border-r bg-background">
         <div className="flex items-center justify-between p-4 border-b">
           <h1 className="font-semibold">AI Chat Assistant</h1>
-          <ThemeToggle />
         </div>
         <ChatList />
       </aside>
@@ -34,14 +33,13 @@ export default function ChatLayout({
               size="icon" 
               className="absolute left-4 top-3 z-10 md:hidden"
             >
-              <MenuIcon className="h-5 w-5" />
+              <MenuIcon className="h-10 w-10" />
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="p-0 w-[280px]">
             <div className="flex flex-col h-full">
               <div className="flex items-center justify-between p-4 border-b">
                 <h1 className="font-semibold">AI Chat Assistant</h1>
-                <ThemeToggle />
               </div>
               <ChatList />
             </div>
@@ -50,8 +48,8 @@ export default function ChatLayout({
       </div>
       
       {/* Main content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex items-center justify-between h-14 px-4 border-b bg-background">
+      <div className="flex-1 flex flex-col">
+        <header className="flex items-center justify-end h-14 px-4 border-b bg-background">
           <ThemeToggle />
         </header>
         

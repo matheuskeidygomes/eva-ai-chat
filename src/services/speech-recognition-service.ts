@@ -1,6 +1,5 @@
 "use client";
 
-// Type definition for the Web Speech API which is not fully typed in TypeScript
 interface SpeechRecognitionEvent extends Event {
   results: SpeechRecognitionResultList;
   resultIndex: number;
@@ -22,7 +21,6 @@ interface SpeechRecognitionAlternative {
   confidence: number;
 }
 
-// Interface for the SpeechRecognition instance based on usage
 interface ISpeechRecognition {
   continuous: boolean;
   interimResults: boolean;
@@ -33,10 +31,8 @@ interface ISpeechRecognition {
   stop: () => void;
 }
 
-// Type for the constructor
 type SpeechRecognitionAPIConstructor = new () => ISpeechRecognition;
 
-// Augment the global Window interface
 declare global {
   interface Window {
     SpeechRecognition?: SpeechRecognitionAPIConstructor;
@@ -44,8 +40,6 @@ declare global {
   }
 }
 
-// Safari uses webkitSpeechRecognition
-// This constant will hold the correct constructor if available
 const SpeechRecognitionAPI: SpeechRecognitionAPIConstructor | undefined = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 export class SpeechRecognizer {

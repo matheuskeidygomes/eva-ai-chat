@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { ChatMessages } from '@/components/chat/chat-messages';
 import { ChatInput } from '@/components/chat/chat-input';
-import { useStore } from '@/lib/store';
+import { useStore } from '@/store';
 
 export default function ChatPage() {
   const params = useParams<{ id: string }>();
@@ -24,12 +24,12 @@ export default function ChatPage() {
   }, [chatId]);
   
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex flex-1 flex-col min-h-0 gap-3">
+      <div className="flex flex-1 justify-center items-center overflow-y-auto w-full h-full">
         <ChatMessages chatId={chatId} />
       </div>
       
-      <div className="p-4 bg-background">
+      <div className="bg-background pb-4 pl-5 pr-5">
         <ChatInput chatId={chatId} />
       </div>
     </div>

@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useStore } from '@/lib/store';
+import { useStore } from '@/store';
 
 export function ChatList() {
   const router = useRouter();

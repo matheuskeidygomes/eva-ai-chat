@@ -4,8 +4,8 @@ import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
 import ReactMarkdown from 'react-markdown';
-import { Message, Attachment } from '@/lib/store';
-import { fileService } from '@/lib/file-service';
+import { Message, Attachment } from '@/store';
+import { fileService } from '@/services/file-service';
 
 interface MessageProps {
   message: Message;

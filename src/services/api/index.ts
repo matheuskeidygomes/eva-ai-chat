@@ -1,40 +1,32 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { Message, MessageRole } from './store';
+import { Message, MessageRole } from '../../store';
 
-const API_BASE_URL = 'http://localhost:8000'; // Base URL from documentation
-const APP_NAME = 'multi_tool_agent'; // App name from documentation
-const USER_ID = 'frontend_user'; // Using a fixed user ID for now
+const API_BASE_URL = 'http://localhost:8000'; 
+const APP_NAME = 'multi_tool_agent'; 
+const USER_ID = 'frontend_user'; 
 const SESSION_ID_KEY = 'multiToolAgentSessionId';
 
-// Function to get or create a session ID
 const getSessionId = (): string => {
   let sessionId = localStorage.getItem(SESSION_ID_KEY);
+
+  // If no session ID is found, create a new one and store it
   if (!sessionId) {
     sessionId = uuidv4();
     localStorage.setItem(SESSION_ID_KEY, sessionId);
-    // We might need to explicitly create the session on the backend if just sending
-    // the ID isn't enough, but the /run endpoint seems to require it.
-    // Let's try without explicit creation first, and add it if needed.
-    // createSession(sessionId); // Potentially call createSession here
+    createSession(sessionId);
   }
   return sessionId;
 };
 
-// Optional: Function to explicitly create a session via the API
-// This might be necessary depending on how the backend handles unknown session IDs.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const createSession = async (sessionId: string) => {
   try {
     await axios.post(`${API_BASE_URL}/apps/${APP_NAME}/users/${USER_ID}/sessions/${sessionId}`);
     console.log(`Session ${sessionId} created or ensured.`);
   } catch (error) {
     console.error('Error creating session:', error);
-    // Handle error appropriately, maybe clear the stored session ID?
-    // localStorage.removeItem(SESSION_ID_KEY);
   }
 };
-
 
 interface RunApiRequest {
   app_name: string;
@@ -44,10 +36,8 @@ interface RunApiRequest {
     role: 'user';
     parts: { text: string }[];
   };
-  // The API doesn't seem to take the full history in the request based on docs
 }
 
-// Define the structure for the API response events based on integration.md
 interface ApiResponseEvent {
   content: {
     parts: (
@@ -55,23 +45,20 @@ interface ApiResponseEvent {
       | { functionCall: { id: string; args: Record<string, unknown>; name: string } }
       | { functionResponse: { id: string; name: string; response: Record<string, unknown> } }
     )[];
-    role: 'model' | 'user' | 'tool'; // Assuming 'tool' might be possible too
+    role: 'model' | 'user' | 'tool';
   };
-  author: string; // e.g., "main_agent", "file_system_agent"
+  author: string;
   id: string;
   timestamp: number;
   invocation_id: string;
-  actions: Record<string, unknown>; // Keeping this more general unless specific actions are known
-  long_running_tool_ids?: string[]; // Optional based on example
-  // Remove the generic index signature if possible, or keep if truly needed for unknown props
-  // [key: string]: unknown; // Use unknown instead of any if needed
+  actions: Record<string, unknown>;
+  long_running_tool_ids?: string[]; 
 }
 
 export const chatApi = {
-  // Replace the mock 'text' method with the actual API call
   text: async (messages: Pick<Message, 'role' | 'content'>[]): Promise<{ role: MessageRole; content: string }> => {
     const sessionId = getSessionId();
-    // Ensure session exists on backend before sending message (optional, uncomment if needed)
+
     // await createSession(sessionId);
 
     const latestUserMessage = messages.findLast(m => m.role === 'user')?.content || '';
@@ -136,19 +123,4 @@ export const chatApi = {
       };
     }
   },
-
-  // Keep the stream method commented out or remove it, as the API doc doesn't specify streaming.
-  // If streaming is needed later, it would require a different API endpoint or approach.
-  /*
-  stream: async (messages: ChatRequest['messages'],
-                onChunk: (chunk: { role: MessageRole; content: string }) => void,
-                onFinish: () => void) => {
-    // Streaming implementation would go here if the API supported it
-    console.warn("Streaming not implemented for this API based on current documentation.");
-    // Simulate a non-streaming response via chunks for compatibility?
-    const response = await chatApi.text(messages);
-    onChunk(response);
-    onFinish();
-  }
-  */
 }; 
