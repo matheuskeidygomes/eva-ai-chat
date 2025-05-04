@@ -24,28 +24,25 @@ export function ChatMessages({ chatId }: ChatMessagesProps) {
     }
   }, [chat?.messages?.length]);
 
-  if (!chat) {
-    return (
-      <div className="flex flex-col items-center justify-center h-full p-4 text-center text-muted-foreground">
-        <p>Chat not found</p>
-      </div>
-    );
-  }
-
   return (
     <ScrollArea ref={scrollAreaRef} className="pl-5 pr-5 w-full h-full">
-      {chat.messages.length === 0 ? (
-        <div className="flex flex-col items-center justify-center text-center text-muted-foreground">
-          <h3 className="text-xl font-medium mb-2">Welcome to your conversation with AI</h3>
-          <p>Send a message to start chatting</p>
-        </div>
-      ) : (
-        <div className="flex flex-col gap-6 pt-4">
-          {chat.messages.map((message) => (
-            <MessageComponent key={message.id} message={message} />
-          ))}
-        </div>
-      )}
+      {chat ? chat.messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center text-center text-muted-foreground">
+            <h3 className="text-xl font-medium mb-2">Welcome to your conversation with EVA</h3>
+            <p>Send a message to start chatting</p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-6 pt-4">
+            {chat.messages.map((message) => (
+              <MessageComponent key={message.id} message={message} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center text-center text-muted-foreground">
+            <h3 className="text-xl font-medium mb-2">There is no chat history</h3>
+          </div>
+        )
+      }
     </ScrollArea>
   );
 } 
