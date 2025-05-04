@@ -13,14 +13,19 @@ export default function ChatPage() {
   const { getChat, setActiveChat } = useStore();
   
   useEffect(() => {
-    // Set active chat when component mounts
-    setActiveChat(chatId);
-    
     // Check if chat exists
     const chat = getChat(chatId);
     if (!chat) {
       toast.error('Chat not found');
+      return;
     }
+    // Set active chat when component mounts
+    setActiveChat(chatId);
+
+    // Clean up on unmount
+    return () => {
+      setActiveChat(null);
+    };
   }, [chatId]);
   
   return (

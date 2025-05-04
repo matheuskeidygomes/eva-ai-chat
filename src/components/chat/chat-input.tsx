@@ -28,7 +28,8 @@ export function ChatInput({ chatId }: ChatInputProps) {
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const isSpeechSupported = typeof window !== 'undefined' && speechRecognitionService.isSupported();
 
-  const { addMessage } = useStore();
+  const { addMessage, getChat } = useStore();
+  const chat = getChat(chatId);
 
   useEffect(() => {
     // Initialize audio recorder and speech recognizer
@@ -62,7 +63,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
   }, []);
 
   const handleSendMessage = async () => {
-    if ((message.trim() === '' && attachments.length === 0) || isLoading) {
+    if ((message.trim() === '' && attachments.length === 0) || isLoading || !chat) {
       return;
     }
     setIsLoading(true);
@@ -72,11 +73,11 @@ export function ChatInput({ chatId }: ChatInputProps) {
         content: message,
         attachments: attachments.length > 0 ? [...attachments] : undefined,
       };
-      addMessage(chatId, userMessage);
+      addMessage(chat.id, userMessage);
       setMessage('');
       setAttachments([]);
-      const aiMessage = await chatApi.text('', chatId, userMessage);
-      addMessage(chatId, aiMessage);
+      const aiMessage = await chatApi.text('', chat.id, userMessage);
+      addMessage(chat.id, aiMessage);
     } catch (error) {
       console.error('Error sending message:', error);
     } finally {
@@ -203,7 +204,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
             type="button"
             variant="ghost"
             size="icon"
-            disabled={isLoading}
+            disabled={isLoading || !chat}
             onClick={() => fileInputRef.current?.click()}
             className="h-10 w-10 cursor-pointer"
           >
@@ -224,7 +225,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
             ref={textAreaRef}
             placeholder="Type a message..."
             rows={1}
-            disabled={isLoading}
+            disabled={isLoading || !chat}
             value={isListening ? message + ' ' + interimTranscript : message}
             onChange={e => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -238,7 +239,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
               type="button"
               variant={isListening ? "destructive" : "secondary"}
               size="icon"
-              disabled={isLoading || isRecording}
+              disabled={isLoading || isRecording || !chat}
               onClick={toggleListening}
               className={`h-10 w-10 flex-shrink-0 cursor-pointer ${isListening ? "animate-pulse" : ""}`}
               title={isListening ? "Stop listening" : "Start voice input"}
@@ -255,7 +256,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
 
           <Button
             type="button"
-            disabled={isLoading || (message.trim() === '' && attachments.length === 0)}
+            disabled={isLoading || (message.trim() === '' && attachments.length === 0) || !chat}
             onClick={handleSendMessage}
             className="h-10 w-10 flex-shrink-0 cursor-pointer"
             title="Send message"
@@ -267,6 +268,7 @@ export function ChatInput({ chatId }: ChatInputProps) {
             type="button"
             variant="secondary"
             size="icon"
+            disabled={!chat}
             className="h-10 w-10 flex-shrink-0 cursor-pointer"
             title="Settings"
           >
