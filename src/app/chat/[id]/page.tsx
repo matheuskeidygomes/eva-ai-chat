@@ -17,6 +17,7 @@ export default function ChatPage() {
     const chat = getChat(chatId);
     if (!chat) {
       toast.error('Chat not found');
+      setActiveChat(null);
       return;
     }
     // Set active chat when component mounts
