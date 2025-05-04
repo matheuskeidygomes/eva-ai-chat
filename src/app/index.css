@@ -131,6 +131,12 @@
     animation: appearing-animation 0.5s forwards;
   }
 
+  [data-radix-scroll-area-viewport] > div {
+    display: block !important;
+    /* Optional: might be needed depending on context */
+    /* min-height: auto !important; */
+  }
+
   @keyframes appearing-animation {
     from {
       opacity: 0;

@@ -69,7 +69,7 @@ export function ChatList() {
       </div>
       
       <ScrollArea className="flex-1 overflow-y-auto">
-        <div className="px-2 pb-4">
+        <div className="px-2 pb-4 w-full">
           {chats.length === 0 ? (
             <div className="p-4 text-center text-muted-foreground">
               <p>No chats yet</p>
