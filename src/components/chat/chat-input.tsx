@@ -65,30 +65,17 @@ export function ChatInput({ chatId }: ChatInputProps) {
     if ((message.trim() === '' && attachments.length === 0) || isLoading) {
       return;
     }
-
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-
       const userMessage = {
         role: 'user' as const,
         content: message,
         attachments: attachments.length > 0 ? [...attachments] : undefined,
       };
       addMessage(chatId, userMessage);
-
       setMessage('');
       setAttachments([]);
-
-      // Get all messages from this chat to send as context
-      const chat = useStore.getState().getChat(chatId);
-      if (!chat) return;
-
-      const messageHistory = chat.messages.map(m => ({
-        role: m.role,
-        content: m.content
-      }));
-
-      const aiMessage = await chatApi.text([...messageHistory, userMessage]);
+      const aiMessage = await chatApi.text('', chatId, userMessage);
       addMessage(chatId, aiMessage);
     } catch (error) {
       console.error('Error sending message:', error);

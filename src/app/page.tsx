@@ -4,23 +4,33 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/store";
 import Image from "next/image";
+import { createSession } from "@/services/api";
 
 export default function Home() {
   const router = useRouter();
   const { chats, createChat } = useStore();
 
-  useEffect(() => {
-    // If there are existing chats, redirect to the most recent one
-    if (chats.length > 0) {
-      const sortedChats = [...chats].sort((a, b) => 
-        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      );
-      router.push(`/chat/${sortedChats[0].id}`);
-    } else {
-      // Otherwise create a new chat
+  async function handleCreateChat() {
+    try {
       const newChatId = createChat();
+      await createSession('', newChatId);
       router.push(`/chat/${newChatId}`);
+    } catch (error) {
+      console.error('Failed to create chat:', error);
     }
+  }
+
+  function handleRedirectToLastChat() {
+    const sortedChats = [...chats].sort((a, b) => 
+      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
+    router.push(`/chat/${sortedChats[0].id}`);
+  }
+
+  // If there are existing chats, redirect to the most recent one, otherwise create a new chat
+  useEffect(() => {
+    if (chats.length > 0) handleRedirectToLastChat();
+    else handleCreateChat();
   }, []);
   
   return (

@@ -6,15 +6,21 @@ import { Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStore } from '@/store';
+import { createSession } from '@/services/api';
 
 export function ChatList() {
   const router = useRouter();
   const pathname = usePathname();
   const { chats, createChat, deleteChat, activeChat, setActiveChat } = useStore();
   
-  const handleCreateChat = () => {
-    const newChatId = createChat();
-    router.push(`/chat/${newChatId}`);
+  const handleCreateChat = async () => {
+    try {
+      const newChatId = createChat();
+      await createSession('', newChatId);
+      router.push(`/chat/${newChatId}`);
+    } catch (error) {
+      console.error('Failed to create chat:', error);
+    }
   };
   
   const handleSelectChat = (id: string) => {
