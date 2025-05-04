@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Chat Assistant",
-  description: "Chat with an AI assistant",
+  title: "EVA AI Assistant",
+  description: "Chat with EVA AI Assistant",
+  icons: {
+    icon: "/logo-black.png",
+  },
 };
 
 export default function RootLayout({

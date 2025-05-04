@@ -1,4 +1,4 @@
-# AI Chat Assistant
+# EVA AI Chat Assistant
 
 A modern chat application that allows users to communicate with an AI assistant. The application supports both regular and streaming responses, file uploads, and voice messages.
 

@@ -15,7 +15,7 @@ export default function ChatLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   return (
-    <main className="flex h-screen overflow-hidden">
+    <main className="flex h-screen overflow-hidden opacity-0 appearing">
       {/* Desktop sidebar */}
       <aside className="hidden md:flex flex-col w-[280px] border-r bg-background">
         <div className="flex items-center justify-between p-4 border-b">

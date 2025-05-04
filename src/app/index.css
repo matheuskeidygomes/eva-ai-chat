@@ -126,4 +126,18 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  .appearing {
+    animation: appearing-animation 0.5s forwards;
+  }
+
+  @keyframes appearing-animation {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
+

@@ -28,7 +28,7 @@ export default function Home() {
       <div className="text-center">
         <Image src="/logo-black.png" alt="Logo" width={100} height={100} className="w-30 m-4 inline dark:hidden"/>
         <Image src="/logo-white.png" alt="Logo" width={100} height={100} className="w-30 m-4 hidden dark:inline"/>
-        <h1 className="text-5xl font-bold font-[TESLA] dark:text-white">EVA</h1>
+        <h1 className="text-5xl font-bold font-[TESLA] dark:text-white">EVA AI</h1>
       </div>
     </main>
   );
