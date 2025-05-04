@@ -61,7 +61,7 @@ export function ChatList() {
       <div className="p-4">
         <Button 
           onClick={handleCreateChat} 
-          className="w-full"
+          className="w-full cursor-pointer"
         >
           <Plus className="mr-2 h-4 w-4" />
           New Chat
@@ -96,7 +96,7 @@ export function ChatList() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 opacity-0 group-hover:opacity-100"
+                      className="h-8 w-8 opacity-0 group-hover:opacity-100 cursor-pointer"
                       onClick={(e) => handleDeleteChat(e, chat.id)}
                     >
                       <Trash2 className="h-4 w-4" />

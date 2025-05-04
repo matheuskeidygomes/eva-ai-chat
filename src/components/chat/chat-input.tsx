@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, MicOff, Send, Paperclip, X } from 'lucide-react';
+import { Mic, MicOff, Send, Paperclip, X, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useStore, Attachment } from '@/store';
@@ -60,14 +60,6 @@ export function ChatInput({ chatId }: ChatInputProps) {
       stopListening();
     };
   }, []);
-
-  useEffect(() => {
-    // Auto-resize textarea as content changes
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto';
-      textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
-    }
-  }, [message, interimTranscript]);
 
   const handleSendMessage = async () => {
     if ((message.trim() === '' && attachments.length === 0) || isLoading) {
@@ -218,15 +210,15 @@ export function ChatInput({ chatId }: ChatInputProps) {
       )}
 
       {/* Input area */}
-      <div className="flex items-end gap-2">
-        <div>
+      <div className="flex gap-2">
+        <div className="flex md:items-end gap-1">
           <Button
             type="button"
             variant="ghost"
             size="icon"
             disabled={isLoading}
             onClick={() => fileInputRef.current?.click()}
-            className="h-10 w-10"
+            className="h-10 w-10 cursor-pointer"
           >
             <Paperclip className="h-5 w-5" />
           </Button>
@@ -249,11 +241,11 @@ export function ChatInput({ chatId }: ChatInputProps) {
             value={isListening ? message + ' ' + interimTranscript : message}
             onChange={e => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="resize-none max-h-36 overflow-y-auto"
+            className="resize-none h-full max-h-35 overflow-y-auto"
           />
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex flex-col md:flex-row md:items-end gap-1">
           {isSpeechSupported && (
             <Button
               type="button"
@@ -282,6 +274,16 @@ export function ChatInput({ chatId }: ChatInputProps) {
             title="Send message"
           >
             <Send className="h-5 w-5" />
+          </Button>
+
+          <Button
+            type="button"
+            variant="secondary"
+            size="icon"
+            className="h-10 w-10 flex-shrink-0 cursor-pointer"
+            title="Settings"
+          >
+            <Settings className="h-5 w-5" />
           </Button>
         </div>
       </div>

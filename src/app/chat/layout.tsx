@@ -31,7 +31,7 @@ export default function ChatLayout({
             <Button 
               variant="ghost" 
               size="icon" 
-              className="absolute left-4 top-3 z-10 md:hidden"
+              className="absolute left-4 top-3 z-10 md:hidden cursor-pointer"
             >
               <MenuIcon className="h-10 w-10" />
             </Button>
